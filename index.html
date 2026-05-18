@@ -14,12 +14,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#f5efe6; --bg2:#ede4d6; --card:#faf5ee; --ink:#4a3728; --surface:#4a3728;
-  --ink2:color-mix(in srgb, var(--ink) 80%, var(--bg));
-  --ink3:color-mix(in srgb, var(--ink) 50%, var(--bg));
-  --accent:#b84a2e; --rust:#b84a2e; --sage:#5a6e52; --gold:#c49a3c;
-  --line:color-mix(in srgb, var(--ink) 30%, var(--bg));
-  --border-col:#000;
+  --bg:#d9cfc4;
+  --bg2:#ccc3b8;
+  --card:#faf5ee;
+  --ink:#2e1f14;
+  --ink2:#5a4030;
+  --ink3:#8a7060;
+  --line:#b8a890;
+  --accent:#c0401a;
+  --rust:#c0401a;
+  --surface:#2e1f14;
+  --tabs:#2e1f14;
+  --on-surface:#faf5ee;
+  --border-col:#000000;
+  --sage:#5a6e52; --gold:#c49a3c;
   --tab-h:56px; --head-h:52px; --r:8px; --bdr:3px solid var(--border-col);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -28,24 +36,25 @@ body{background:var(--bg);color:var(--ink);font-family:'Source Serif 4',Georgia,
   display:flex;flex-direction:column}
 
 /* HEADER */
-#appHeader{height:var(--head-h);flex-shrink:0;background:var(--surface);color:var(--bg);
+#appHeader{height:var(--head-h);flex-shrink:0;background:var(--surface);color:var(--on-surface);
   display:flex;align-items:center;justify-content:center;padding:0 16px;
   border-bottom:3px solid var(--border-col);position:relative;z-index:20}
 #appHeader h1{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.35rem;
   letter-spacing:.06em;text-transform:uppercase}
 
 /* TAB BAR */
-#tabBar{height:var(--tab-h);flex-shrink:0;background:var(--surface);display:flex;
+#tabBar{height:var(--tab-h);flex-shrink:0;background:var(--tabs);display:flex;
   border-top:3px solid var(--border-col);order:99}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-  cursor:pointer;border:none;background:transparent;color:color-mix(in srgb, var(--bg) 55%, var(--surface));
+  cursor:pointer;border:none;background:transparent;
+  color:color-mix(in srgb, var(--on-surface) 55%, transparent);
   font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;
   text-transform:uppercase;letter-spacing:.1em;transition:color .15s;
   border-bottom:4px solid transparent;padding-top:2px}
 .tab svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;
   stroke-linecap:round;stroke-linejoin:round}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-.tab:not(.active):hover{color:var(--bg2)}
+.tab:not(.active):hover{color:var(--on-surface)}
 
 /* CONTENT */
 #content{flex:1;overflow:hidden;position:relative}
@@ -162,7 +171,7 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
   margin:0 0 4px;overflow:hidden}
 .ing-card-amt{flex-shrink:0;width:52px;display:flex;align-items:center;
   justify-content:center;border-right:3px solid var(--border-col);
-  font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--ink);
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.82rem;color:var(--ink);
   padding:0 4px}
 .ing-card-unit{flex-shrink:0;width:52px;display:flex;align-items:center;
   justify-content:center;border-right:3px solid var(--border-col);
@@ -180,16 +189,16 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 .result-source a{color:var(--accent);text-decoration:none}
 .result-source a:hover{text-decoration:underline}
 .ing-list{list-style:none;margin-bottom:4px}
-.ing-list li{padding:7px 0;border-bottom:1px solid rgba(200,184,154,.5);
+.ing-list li{padding:7px 0;border-bottom:1px solid var(--line);
   font-size:.92rem;color:var(--ink2);line-height:1.45}
 .ing-list li:last-child{border-bottom:none}
 .ing-list li::before{content:'—';color:var(--line);margin-right:8px;
   font-family:'Share Tech Mono',monospace}
 .step-list{list-style:none}
-.step-list li{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid rgba(200,184,154,.4)}
+.step-list li{display:flex;gap:10px;padding:8px 0;border-bottom:2px solid var(--accent)}
 .step-list li:last-child{border-bottom:none}
 .step-n{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;
-  color:var(--accent);min-width:22px;flex-shrink:0;padding-top:1px}
+  color:var(--accent);min-width:22px;flex-shrink:0;align-self:center;padding-top:0}
 .step-t{font-size:.93rem;color:var(--ink2);line-height:1.65}
 .result-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 
@@ -222,18 +231,18 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 #detailView.open{transform:translateX(0)}
 
 /* BACK HEADER — subdivided */
-#detailBack{height:var(--head-h);flex-shrink:0;background:var(--ink);
+#detailBack{height:var(--head-h);flex-shrink:0;background:var(--surface);
   display:flex;align-items:stretch;border-bottom:3px solid var(--border-col);position:relative}
 #detailBackBtn{width:var(--head-h);flex-shrink:0;display:flex;align-items:center;
   justify-content:center;border-right:3px solid var(--border-col);cursor:pointer;
   transition:background .15s;z-index:1}
 #detailBackBtn:hover{background:var(--accent)}
-#detailBackBtn svg{width:20px;height:20px;stroke:var(--bg);fill:none;stroke-width:2.5;
+#detailBackBtn svg{width:20px;height:20px;stroke:var(--on-surface);fill:none;stroke-width:2.5;
   stroke-linecap:round;stroke-linejoin:round}
 #detailBackTitle{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;
   align-items:center;justify-content:center;
   font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;
-  text-transform:uppercase;letter-spacing:.08em;color:var(--bg);
+  text-transform:uppercase;letter-spacing:.08em;color:var(--on-surface);
   pointer-events:none;padding:0 var(--head-h)}
 #detailBackSpacer{flex:1}
 
@@ -244,34 +253,37 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 /* SCALE SECTION */
 #detailTop{padding:4px;flex-shrink:0;border-bottom:3px solid var(--border-col);max-width:100%}
 .scale-bar{display:flex;align-items:stretch;height:45px;
-  border:var(--bdr);border-radius:var(--r);overflow:hidden;margin:0}
-.scale-btn{width:45px;flex-shrink:0;background:transparent;border:none;cursor:pointer;
+  border:var(--bdr);border-radius:var(--r);overflow:hidden;margin:0;background:var(--card)}
+.scale-btn{width:45px;flex-shrink:0;background:var(--accent);border:none;cursor:pointer;
   font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;
-  color:var(--ink);transition:background .12s;line-height:1}
+  color:var(--on-surface);transition:opacity .12s;line-height:1}
 .scale-btn:first-child{border-right:3px solid var(--border-col)}
 .scale-btn:last-child{border-left:3px solid var(--border-col)}
-.scale-btn:hover{background:var(--bg2)}
+.scale-btn:hover{opacity:.8}
 .scale-center{flex:1;display:flex;flex-direction:column;align-items:center;
   justify-content:center;gap:1px}
+.scale-center{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:3px;padding-top:6px}
 .scale-top-label{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.55rem;
   text-transform:uppercase;letter-spacing:.16em;color:var(--ink3);line-height:1}
-#scaleVal{font-family:'Share Tech Mono',monospace;font-size:1.05rem;font-weight:700;
-  color:var(--ink);line-height:1.1;background:transparent;border:none;outline:none;
+#scaleVal{font-family:'Share Tech Mono',monospace;font-size:1.1rem;font-weight:900;
+  color:var(--ink);line-height:1;background:transparent;border:none;outline:none;
   text-align:center;width:80px;-moz-appearance:textfield;padding:0}
 #scaleVal::-webkit-inner-spin-button,#scaleVal::-webkit-outer-spin-button{-webkit-appearance:none}
 
 /* DETAIL BOTTOM TABS — mirrors main tabBar */
-.detail-tab-bar{height:var(--tab-h);flex-shrink:0;background:var(--ink);
+.detail-tab-bar{height:var(--tab-h);flex-shrink:0;background:var(--tabs);
   display:flex;border-top:3px solid var(--border-col)}
 .sub-tab{flex:1;display:flex;flex-direction:column;align-items:center;
   justify-content:center;gap:3px;cursor:pointer;border:none;background:transparent;
-  color:var(--ink3);font-family:'Barlow Condensed',sans-serif;font-size:.7rem;
+  color:color-mix(in srgb, var(--on-surface) 55%, transparent);
+  font-family:'Barlow Condensed',sans-serif;font-size:.7rem;
   font-weight:600;text-transform:uppercase;letter-spacing:.1em;transition:color .15s;
   border-bottom:4px solid transparent;padding-top:2px}
 .sub-tab svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;
   stroke-linecap:round;stroke-linejoin:round}
 .sub-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-.sub-tab:not(.active):hover{color:var(--bg2)}
+.sub-tab:not(.active):hover{color:var(--on-surface)}
 
 #detailScroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 #detailScrollInner{padding:4px 4px 48px;max-width:780px;margin:0 auto}
@@ -279,7 +291,8 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 .sub-pane.active{display:block}
 
 /* SETTINGS TABS */
-.stab{flex:1;height:40px;background:transparent;border:none;color:var(--ink3);
+.stab{flex:1;height:40px;background:transparent;border:none;
+  color:color-mix(in srgb, var(--on-surface) 55%, transparent);
   font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.75rem;
   text-transform:uppercase;letter-spacing:.12em;cursor:pointer;
   border-bottom:3px solid transparent;transition:color .15s}
@@ -369,7 +382,7 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
   <div class="pane" id="paneSettings" style="display:none;flex-direction:column">
 
     <!-- Settings sub-tabs fixed bar -->
-    <div id="settingsTabBar" style="flex-shrink:0;display:flex;background:var(--ink);
+    <div id="settingsTabBar" style="flex-shrink:0;display:flex;background:var(--tabs);
       border-bottom:3px solid var(--border-col)">
       <button class="stab active" data-stab="stabApi" onclick="switchSettingsTab(this)">API</button>
       <button class="stab" data-stab="stabData" onclick="switchSettingsTab(this)">Data</button>
@@ -438,7 +451,7 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
       padding:0 14px;font-family:'Share Tech Mono',monospace;font-size:.78rem;color:var(--ink)">
   </div>
   <button id="fetchBtn" onclick="doScrape()"
-    style="width:100%;height:45px;background:var(--surface);color:var(--bg);
+    style="width:100%;height:45px;background:var(--surface);color:var(--on-surface);
     border:3px solid var(--border-col);border-radius:var(--r);
     font-family:'Barlow Condensed',sans-serif;font-weight:800;
     font-size:.9rem;text-transform:uppercase;letter-spacing:.12em;cursor:pointer;
@@ -451,16 +464,16 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 <div id="saveBar" style="position:fixed;bottom:var(--tab-h);left:0;right:0;z-index:15;
   background:var(--bg);border-top:3px solid var(--border-col)">
   <div style="display:flex;align-items:stretch;height:45px;border:3px solid var(--border-col);
-    border-radius:var(--r);margin:4px;overflow:hidden;background:var(--ink)">
+    border-radius:var(--r);margin:4px;overflow:hidden">
     <button onclick="addToList()"
-      style="flex:1;background:var(--surface);color:var(--bg);border:none;
+      style="flex:1;background:var(--surface);color:var(--on-surface);border:none;
       border-right:3px solid var(--border-col);font-family:'Barlow Condensed',sans-serif;
       font-weight:800;font-size:.82rem;text-transform:uppercase;letter-spacing:.1em;
-      cursor:pointer;transition:background .15s" id="saveBtn">
+      cursor:pointer;transition:opacity .15s" id="saveBtn">
       Save to List
     </button>
     <button onclick="clearResult()"
-      style="flex:1;background:var(--bg);color:var(--ink3);border:none;
+      style="flex:1;background:var(--card);color:var(--ink3);border:none;
       font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;
       text-transform:uppercase;letter-spacing:.1em;cursor:pointer;transition:all .15s">
       Clear
@@ -486,7 +499,7 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
 <div id="detailView">
   <div id="detailBack">
     <div id="detailBackBtn" onclick="closeDetail()">
-      <svg viewBox="0 0 24 24" width="18" height="18"><polygon points="15,4 15,20 5,12" fill="var(--bg)"/></svg>
+      <svg viewBox="0 0 24 24" width="18" height="18"><polygon points="15,4 15,20 5,12" fill="var(--on-surface)"/></svg>
     </div>
     <span id="detailBackTitle"></span>
     <div id="detailBackSpacer"></div>
@@ -495,7 +508,7 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
       justify-content:center;border-left:3px solid var(--border-col);cursor:pointer;
       transition:background .15s;font-family:'Barlow Condensed',sans-serif;
       font-weight:800;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;
-      color:var(--bg);z-index:1">
+      color:var(--on-surface);z-index:1">
       Edit
     </div>
   </div>
@@ -521,10 +534,12 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
         <div class="sub-pane" id="subRecipeSettings">
           <div style="padding:4px">
             <button id="dDeleteBtn" onclick=""
-              style="width:100%;height:45px;background:transparent;border:3px solid var(--accent);
-              border-radius:var(--r);font-family:'Barlow Condensed',sans-serif;font-weight:700;
-              font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);
-              cursor:pointer;transition:background .15s,color .15s;text-align:center">
+              style="display:block;width:100%;height:45px;background:transparent;
+              border:3px solid var(--border-col);border-radius:var(--r);
+              font-family:'Barlow Condensed',sans-serif;font-weight:700;
+              font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;
+              color:var(--accent);cursor:pointer;box-sizing:border-box;
+              transition:background .15s,color .15s;text-align:center">
               Remove Recipe
             </button>
           </div>
@@ -542,7 +557,7 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
       Steps
     </button>
     <button class="sub-tab" onclick="switchSubTab(this,'subRecipeSettings')">
-      <svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="var(--bg)" stroke="currentColor"/><circle cx="16" cy="12" r="2" fill="var(--bg)" stroke="currentColor"/><circle cx="10" cy="18" r="2" fill="var(--bg)" stroke="currentColor"/></svg>
+      <svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="8" cy="6" r="2" fill="var(--on-surface)" stroke="currentColor"/><circle cx="16" cy="12" r="2" fill="var(--on-surface)" stroke="currentColor"/><circle cx="10" cy="18" r="2" fill="var(--on-surface)" stroke="currentColor"/></svg>
       Options
     </button>
   </div>
@@ -586,12 +601,12 @@ function getSingular(unit) {
 // Get display form: singular when n=1, plural when n≠1
 function getPlural(unit, n) {
   const sing = getSingular(unit);
-  if (n === 1) return sing;
+  if (n <= 1) return sing;
   if (unit.includes('/')) {
     const suffix = unit.split('/')[1];
     return suffix.length <= 3 ? sing + suffix : suffix;
   }
-  return UNIT_PLURAL[sing] || sing; // fallback for plain stored units
+  return UNIT_PLURAL[sing] || sing;
 }
 
 function parseLeading(s) {
@@ -1138,7 +1153,7 @@ function openDetail(id) {
   currentScale = 1;
   detailEditMode = false;
   document.getElementById('detailEditBtn').textContent = 'Edit';
-  document.getElementById('detailEditBtn').style.color = 'var(--bg)';
+  document.getElementById('detailEditBtn').style.color = 'var(--on-surface)';
   renderDetailIngredients(r.ingredients, 1);
   document.getElementById('dSteps').innerHTML = r.instructions.map((s,i)=>
     `<li><span class="step-n">${i+1}</span><span class="step-t">${x(s)}</span></li>`).join('');
@@ -1159,7 +1174,7 @@ function toggleDetailEdit() {
   const btn = document.getElementById('detailEditBtn');
   if (detailEditMode) {
     btn.textContent = 'Save';
-    btn.style.color = 'var(--gold)';
+    btn.style.color = 'var(--accent)';
     editIngredients = detailRecipe.ingredients.map(ing => {
       if (typeof ing === 'object' && ing !== null) {
         return { amount: ing.a || '', unit: autoNotation(ing.u) || ing.u || '', name: ing.n || '' };
@@ -1197,7 +1212,7 @@ function saveDetailEdits() {
   saveRecipes(recipes);
   detailRecipe = recipes[idx];
   const btn = document.getElementById('detailEditBtn');
-  btn.textContent = 'Edit'; btn.style.color = 'var(--bg)';
+  btn.textContent = 'Edit'; btn.style.color = 'var(--on-surface)';
   currentScale = 1;
   document.getElementById('scaleVal').value = 1;
   renderDetailIngredients(ingredients, 1);
@@ -1236,7 +1251,8 @@ function renderDetailIngredients(ingredients, mult) {
         const n = parseFloat(raw.a) || 0;
         const scaled = n ? n * mult : 0;
         amt = scaled ? fmtNum(scaled) : (raw.a || '');
-        unit = raw.u || '';
+        const sing = raw.u || '';
+        unit = sing ? getPlural(autoNotation(sing) || sing, scaled || n) : '';
         name = raw.n || '';
       } else {
         // Legacy plain string fallback
@@ -1294,18 +1310,105 @@ function closeDetail() {
    THEME ENGINE
 ═══════════════════════════════════ */
 const THEMES = [
-  { id:'default', name:'Default',  bg:'#f5efe6', ink:'#4a3728', surface:'#4a3728', accent:'#b84a2e', border:'#000000' },
-  { id:'slate',   name:'Slate',    bg:'#f0f2f5', ink:'#2c3e50', surface:'#1a2535', accent:'#2980b9', border:'#000000' },
-  { id:'forest',  name:'Forest',   bg:'#f2f5f0', ink:'#2d4a2d', surface:'#1a2e1a', accent:'#5a8a3c', border:'#000000' },
-  { id:'dusk',    name:'Dusk',     bg:'#f5f0f8', ink:'#3d2a52', surface:'#251535', accent:'#9b59b6', border:'#000000' },
-  { id:'ember',   name:'Ember',    bg:'#fdf6f0', ink:'#3d2010', surface:'#3d2010', accent:'#e67e22', border:'#000000' },
-  { id:'ink',     name:'Ink',      bg:'#f7f5f2', ink:'#1a1a2e', surface:'#1a1a2e', accent:'#c0392b', border:'#000000' },
-  { id:'midnight',name:'Midnight', bg:'#0f1117', ink:'#e8eaf0', surface:'#070a0f', accent:'#5b8dee', border:'#000000' },
-  { id:'obsidian',name:'Obsidian', bg:'#1a1a1a', ink:'#f0ede8', surface:'#0a0a0a', accent:'#d4a853', border:'#000000' },
-  { id:'noir',    name:'Noir',     bg:'#141414', ink:'#e8e8e8', surface:'#050505', accent:'#e05252', border:'#000000' },
-  { id:'pine',    name:'Pine',     bg:'#0d1f1a', ink:'#c8ddd6', surface:'#060f0d', accent:'#4caf82', border:'#000000' },
-  { id:'plum',    name:'Plum',     bg:'#1a0f2e', ink:'#e8dff5', surface:'#0a0618', accent:'#b57bee', border:'#000000' },
-  { id:'test',    name:'Test (Clash)', bg:'#1a1f3a', ink:'#00e5ff', surface:'#1a1f3a', accent:'#ffff00', border:'#ff00ff' },
+  { id:'default',  name:'Default',
+    bg:'#d9cfc4', card:'#faf5ee', ink:'#2e1f14', ink2:'#5a4030', ink3:'#8a7060', line:'#b8a890',
+    surface:'#2e1f14', tabs:'#2e1f14', on_surface:'#faf5ee', accent:'#c0401a', border:'#000000' },
+  { id:'slate',    name:'Slate',
+    bg:'#b8c8d8', card:'#eef4fa', ink:'#0e1e30', ink2:'#2a4060', ink3:'#506880', line:'#90aac0',
+    surface:'#0e1e30', tabs:'#0e1e30', on_surface:'#eef4fa', accent:'#1a6ab0', border:'#000000' },
+  { id:'forest',   name:'Forest',
+    bg:'#aac4a0', card:'#eef5ea', ink:'#0e2a0e', ink2:'#245024', ink3:'#507050', line:'#88b088',
+    surface:'#0e2a0e', tabs:'#0e2a0e', on_surface:'#eef5ea', accent:'#3a8a20', border:'#000000' },
+  { id:'dusk',     name:'Dusk',
+    bg:'#c4b0d8', card:'#f5eeff', ink:'#200a38', ink2:'#442060', ink3:'#785090', line:'#b090cc',
+    surface:'#200a38', tabs:'#200a38', on_surface:'#f5eeff', accent:'#8830cc', border:'#000000' },
+  { id:'ember',    name:'Ember',
+    bg:'#d8b890', card:'#fff6e8', ink:'#2a1000', ink2:'#5a2800', ink3:'#9a5020', line:'#c09060',
+    surface:'#2a1000', tabs:'#2a1000', on_surface:'#fff6e8', accent:'#d05800', border:'#000000' },
+  { id:'steel',    name:'Steel',
+    bg:'#b8c4cc', card:'#f0f4f8', ink:'#0c1820', ink2:'#283848', ink3:'#506070', line:'#8898a8',
+    surface:'#0c1820', tabs:'#0c1820', on_surface:'#f0f4f8', accent:'#cc2020', border:'#000000' },
+  { id:'midnight', name:'Midnight',
+    bg:'#080c18', card:'#18243a', ink:'#d0d8f0', ink2:'#a0aac8', ink3:'#6878a0', line:'#283850',
+    surface:'#030610', tabs:'#030610', on_surface:'#d0d8f0', accent:'#4888ff', border:'#000000' },
+  { id:'obsidian', name:'Obsidian',
+    bg:'#0c0c0c', card:'#242424', ink:'#f0ede8', ink2:'#c8c0b8', ink3:'#908880', line:'#383838',
+    surface:'#040404', tabs:'#040404', on_surface:'#f0ede8', accent:'#e8a030', border:'#000000' },
+  { id:'noir',     name:'Noir',
+    bg:'#080808', card:'#202020', ink:'#f0f0f0', ink2:'#b8b8b8', ink3:'#787878', line:'#303030',
+    surface:'#000000', tabs:'#000000', on_surface:'#f0f0f0', accent:'#e03030', border:'#000000' },
+  { id:'pine',     name:'Pine',
+    bg:'#050e0a', card:'#102018', ink:'#b0d8c8', ink2:'#80b0a0', ink3:'#508070', line:'#183828',
+    surface:'#020806', tabs:'#020806', on_surface:'#b0d8c8', accent:'#30c878', border:'#000000' },
+  { id:'plum',     name:'Plum',
+    bg:'#0c0418', card:'#200c38', ink:'#e8d8ff', ink2:'#c0a8e8', ink3:'#9878c0', line:'#301848',
+    surface:'#060010', tabs:'#060010', on_surface:'#e8d8ff', accent:'#c060ff', border:'#000000' },
+  // — video games —
+  { id:'gameboy',   name:'Game Boy',
+    bg:'#8bac0f', card:'#9bbc0f', ink:'#0f380f', ink2:'#306230', ink3:'#557a30', line:'#6a9420',
+    surface:'#0f380f', tabs:'#0f380f', on_surface:'#9bbc0f', accent:'#306230', border:'#000000' },
+  { id:'neon',      name:'Neon Arcade',
+    bg:'#0a0015', card:'#150030', ink:'#ff00ff', ink2:'#cc00cc', ink3:'#880088', line:'#330033',
+    surface:'#050008', tabs:'#050008', on_surface:'#ff00ff', accent:'#00ffff', border:'#ff00ff' },
+  { id:'terminal',  name:'Terminal',
+    bg:'#000800', card:'#001400', ink:'#00ff41', ink2:'#00cc33', ink3:'#009922', line:'#003300',
+    surface:'#000400', tabs:'#000400', on_surface:'#00ff41', accent:'#00ff41', border:'#000000' },
+  { id:'halo',      name:'Halo',
+    bg:'#0a1420', card:'#142038', ink:'#80c8ff', ink2:'#5090d0', ink3:'#306090', line:'#1a3050',
+    surface:'#060c14', tabs:'#060c14', on_surface:'#80c8ff', accent:'#40b0ff', border:'#000000' },
+  { id:'zelda',     name:'Hyrule',
+    bg:'#c8a820', card:'#f8e870', ink:'#201000', ink2:'#402800', ink3:'#705000', line:'#a88010',
+    surface:'#201000', tabs:'#201000', on_surface:'#f8e870', accent:'#60a020', border:'#000000' },
+  { id:'bloodborne',name:'Bloodborne',
+    bg:'#0c0800', card:'#201400', ink:'#d8a850', ink2:'#a87830', ink3:'#705020', line:'#301800',
+    surface:'#060400', tabs:'#060400', on_surface:'#d8a850', accent:'#c04010', border:'#000000' },
+  { id:'portal',    name:'Portal',
+    bg:'#4a5058', card:'#0099cc', ink:'#181c20', ink2:'#303840', ink3:'#586068', line:'#9098a0',
+    surface:'#202428', tabs:'#202428', on_surface:'#d0d8e0', accent:'#ff6600', border:'#000000' },
+  { id:'witcher',   name:'The Witcher',
+    bg:'#1a1408', card:'#2e2410', ink:'#d8c890', ink2:'#b0a060', ink3:'#806830', line:'#3a2e10',
+    surface:'#0c0a04', tabs:'#0c0a04', on_surface:'#d8c890', accent:'#c89020', border:'#000000' },
+  { id:'fallout',   name:'Fallout',
+    bg:'#101800', card:'#202e00', ink:'#80ff00', ink2:'#60cc00', ink3:'#409800', line:'#203000',
+    surface:'#080c00', tabs:'#080c00', on_surface:'#80ff00', accent:'#ffcc00', border:'#000000' },
+  { id:'mario',     name:'Super Mario',
+    bg:'#5090f0', card:'#f0f8ff', ink:'#181810', ink2:'#383828', ink3:'#686848', line:'#90a8d0',
+    surface:'#181810', tabs:'#181810', on_surface:'#f0f8ff', accent:'#e02010', border:'#000000' },
+  { id:'test',     name:'Test (Clash)',
+    bg:'#1a1f3a', card:'#3a4070', ink:'#00e5ff', ink2:'#00b8cc', ink3:'#008899', line:'#003344',
+    surface:'#1a1f3a', tabs:'#1a1f3a', on_surface:'#ffff00', accent:'#ffff00', border:'#ff00ff' },
+  // — light —
+  { id:'rose',     name:'Rose',
+    bg:'#d8b0b8', card:'#fff0f4', ink:'#300818', ink2:'#602030', ink3:'#904858', line:'#c08090',
+    surface:'#300818', tabs:'#300818', on_surface:'#fff0f4', accent:'#c01848', border:'#000000' },
+  { id:'sand',     name:'Sand',
+    bg:'#c8b888', card:'#fefae8', ink:'#201800', ink2:'#503800', ink3:'#886828', line:'#b09858',
+    surface:'#201800', tabs:'#201800', on_surface:'#fefae8', accent:'#b06000', border:'#000000' },
+  { id:'ocean',    name:'Ocean',
+    bg:'#88b8c8', card:'#e8f8ff', ink:'#001828', ink2:'#003858', ink3:'#205878', line:'#6090a8',
+    surface:'#001828', tabs:'#001828', on_surface:'#e8f8ff', accent:'#0080c0', border:'#000000' },
+  { id:'ash',      name:'Ash',
+    bg:'#c0bcb8', card:'#f8f6f4', ink:'#181410', ink2:'#383028', ink3:'#685848', line:'#a89888',
+    surface:'#181410', tabs:'#181410', on_surface:'#f8f6f4', accent:'#805040', border:'#000000' },
+  { id:'mint',     name:'Mint',
+    bg:'#90c8b8', card:'#e8fdf8', ink:'#002818', ink2:'#005038', ink3:'#207858', line:'#60a890',
+    surface:'#002818', tabs:'#002818', on_surface:'#e8fdf8', accent:'#008860', border:'#000000' },
+  // — dark —
+  { id:'abyss',    name:'Abyss',
+    bg:'#020408', card:'#0c1020', ink:'#a0b8d8', ink2:'#6888b0', ink3:'#405878', line:'#101828',
+    surface:'#000002', tabs:'#000002', on_surface:'#a0b8d8', accent:'#2060e0', border:'#000000' },
+  { id:'volcano',  name:'Volcano',
+    bg:'#100402', card:'#201008', ink:'#f0c8a0', ink2:'#c89060', ink3:'#a06030', line:'#302010',
+    surface:'#060200', tabs:'#060200', on_surface:'#f0c8a0', accent:'#ff5010', border:'#000000' },
+  { id:'deep',     name:'Deep',
+    bg:'#040810', card:'#101830', ink:'#c0d0e8', ink2:'#8090b8', ink3:'#506080', line:'#182038',
+    surface:'#020408', tabs:'#020408', on_surface:'#c0d0e8', accent:'#6090ff', border:'#000000' },
+  { id:'wine',     name:'Wine',
+    bg:'#100008', card:'#280818', ink:'#f0c8d8', ink2:'#d090a8', ink3:'#a06078', line:'#300818',
+    surface:'#060004', tabs:'#060004', on_surface:'#f0c8d8', accent:'#e02060', border:'#000000' },
+  { id:'moss',     name:'Moss',
+    bg:'#040c04', card:'#0c1e0c', ink:'#b0d0a0', ink2:'#80a870', ink3:'#508040', line:'#183018',
+    surface:'#020602', tabs:'#020602', on_surface:'#b0d0a0', accent:'#50e040', border:'#000000' },
 ];
 
 let activeThemeId = localStorage.getItem('theme') || 'default';
@@ -1313,14 +1416,18 @@ let activeThemeId = localStorage.getItem('theme') || 'default';
 function applyTheme(id) {
   const t = THEMES.find(t => t.id === id) || THEMES[0];
   const s = document.documentElement.style;
-  s.setProperty('--bg', t.bg);
-  s.setProperty('--bg2', adjustBrightness(t.bg, -8));
-  s.setProperty('--card', adjustBrightness(t.bg, 5));
-  s.setProperty('--ink', t.ink);
-  s.setProperty('--surface', t.surface || t.ink);
-  s.setProperty('--accent', t.accent);
-  s.setProperty('--rust', t.accent);
-  s.setProperty('--border-col', t.border);
+  s.setProperty('--bg',         t.bg);
+  s.setProperty('--bg2',        adjustBrightness(t.bg, -8));
+  s.setProperty('--card',       t.card);
+  s.setProperty('--ink',        t.ink);
+  s.setProperty('--ink2',       t.ink2);
+  s.setProperty('--ink3',       t.ink3);
+  s.setProperty('--line',       t.line);
+  s.setProperty('--surface',    t.surface);
+  s.setProperty('--tabs',       t.tabs);
+  s.setProperty('--accent',     t.accent);
+  s.setProperty('--rust',       t.accent);
+  s.setProperty('--on-surface', t.on_surface || t.bg);
   activeThemeId = id;
   localStorage.setItem('theme', id);
   renderThemeTab();
@@ -1335,19 +1442,23 @@ function adjustBrightness(hex, amt) {
 }
 
 function themeCard(t, onclick) {
-  return `<div onclick="${onclick}" style="border:3px solid var(--border-col);border-radius:var(--r);
-    overflow:hidden;cursor:pointer;height:45px;display:flex;align-items:stretch">
-    <div style="flex:1;display:flex;align-items:center;justify-content:center;
-      border-right:3px solid var(--border-col);
+  const click = onclick ? `onclick="${onclick}"` : '';
+  const cur = onclick ? 'cursor:pointer;' : 'cursor:default;';
+  return `<div ${click} style="border:3px solid var(--border-col);border-radius:var(--r);
+    overflow:hidden;${cur}height:45px;display:flex;align-items:stretch">
+    <div style="flex:2;display:flex;align-items:center;justify-content:center;
+      border-right:3px solid var(--border-col);background:var(--card);
       font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;
       text-transform:uppercase;letter-spacing:.1em;color:var(--ink)">
       ${t.name}
     </div>
-    <div style="width:120px;display:flex;align-items:stretch;flex-shrink:0">
-      <div style="flex:1;background:${t.bg};border-right:3px solid var(--border-col)"></div>
-      <div style="flex:1;background:${t.ink};border-right:3px solid var(--border-col)"></div>
-      <div style="flex:1;background:${t.accent};border-right:3px solid var(--border-col)"></div>
-      <div style="flex:1;background:${t.border}"></div>
+    <div style="flex:1;display:flex;align-items:stretch">
+      <div style="flex:1;background:${t.bg}" title="Background"></div>
+      <div style="flex:1;background:${t.card};border-left:3px solid #000" title="Cards"></div>
+      <div style="flex:1;background:${t.accent};border-left:3px solid #000" title="Accent"></div>
+      <div style="flex:1;background:${t.surface};border-left:3px solid #000" title="Header"></div>
+      <div style="flex:1;background:${t.tabs};border-left:3px solid #000" title="Tabs"></div>
+      <div style="flex:1;background:${t.border};border-left:3px solid #000" title="Border"></div>
     </div>
   </div>`;
 }
@@ -1358,12 +1469,29 @@ function renderThemeTab() {
   const activeCard = document.getElementById('activeThemeCard');
   const list = document.getElementById('themeList');
   if (!sec || !activeCard || !list) return;
-  if (active) {
-    sec.style.display = '';
-    activeCard.innerHTML = themeCard(active, '');
-  }
-  list.innerHTML = THEMES.filter(t => t.id !== activeThemeId)
-    .map(t => themeCard(t, `applyTheme('${t.id}')`)).join('');
+  sec.style.display = 'none';
+  list.innerHTML = THEMES.map(t => {
+    const isActive = t.id === activeThemeId;
+    const onclick = isActive ? '' : `applyTheme('${t.id}')`;
+    const borderStyle = isActive ? `border:3px solid var(--accent);border-radius:var(--r)` : `border:3px solid var(--border-col);border-radius:var(--r)`;
+    return `<div ${onclick ? `onclick="${onclick}"` : ''} style="${borderStyle};
+      overflow:hidden;cursor:${isActive ? 'default' : 'pointer'};height:45px;display:flex;align-items:stretch">
+      <div style="flex:2;display:flex;align-items:center;justify-content:center;
+        border-right:3px solid var(--border-col);background:var(--card);
+        font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;
+        text-transform:uppercase;letter-spacing:.1em;color:var(--ink)">
+        ${t.name}
+      </div>
+      <div style="flex:1;display:flex;align-items:stretch">
+        <div style="flex:1;background:${t.bg}" title="Background"></div>
+        <div style="flex:1;background:${t.card};border-left:3px solid #000" title="Cards"></div>
+        <div style="flex:1;background:${t.accent};border-left:3px solid #000" title="Accent"></div>
+        <div style="flex:1;background:${t.surface};border-left:3px solid #000" title="Header"></div>
+        <div style="flex:1;background:${t.tabs};border-left:3px solid #000" title="Tabs"></div>
+        <div style="flex:1;background:${t.border};border-left:3px solid #000" title="Border"></div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 
@@ -1431,9 +1559,9 @@ if('serviceWorker' in navigator){
 <div id="deleteOverlay" style="display:none;position:fixed;inset:0;z-index:200;
   background:rgba(26,20,16,.65);backdrop-filter:blur(3px);
   align-items:center;justify-content:center;padding:24px">
-  <div style="background:var(--card);border:3px solid var(--ink);border-radius:var(--r);
+  <div style="background:var(--card);border:3px solid var(--border-col);border-radius:var(--r);
     max-width:320px;width:100%;overflow:hidden">
-    <div style="padding:20px 18px 6px">
+    <div style="padding:20px 18px 6px;text-align:center">
       <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;
         text-transform:uppercase;letter-spacing:.08em;color:var(--ink);margin-bottom:8px">
         Remove Recipe?
